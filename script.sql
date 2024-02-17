@@ -1,5 +1,5 @@
-BEGIN;
-
+DO $$
+BEGIN
 CREATE TABLE IF NOT EXISTS public.clientes (
   id SERIAL PRIMARY KEY,
   limite INT NOT NULL,
@@ -14,6 +14,4 @@ VALUES
   (10000000, 0),
   (500000, 0);
 
-SELECT * FROM public.clientes;
-
-COMMIT;
+END; $$
