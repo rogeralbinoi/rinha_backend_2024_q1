@@ -1,13 +1,18 @@
--- Coloque scripts iniciais aqui
-CREATE TABLE...
-
 DO $$
 BEGIN
-  INSERT INTO clientes (nome, limite)
-  VALUES
-    ('o barato sai caro', 1000 * 100),
-    ('zan corp ltda', 800 * 100),
-    ('les cruders', 10000 * 100),
-    ('padaria joia de cocaia', 100000 * 100),
-    ('kid mais', 5000 * 100);
+  CREATE TABLE IF NOT EXISTS public.clientes (
+   id SERIAL PRIMARY KEY,
+   limite INT NOT NULL,
+   saldo_inicial INT NOT NULL
+);
+
+
+INSERT INTO public.clientes (limite, saldo_inicial) VALUES
+(100000, 0),
+(80000, 0),
+(1000000, 0),
+(10000000, 0),
+(500000, 0);
+
+SELECT * FROM public.clientes;
 END; $$
