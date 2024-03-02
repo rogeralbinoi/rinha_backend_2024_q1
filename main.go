@@ -19,10 +19,13 @@ func main() {
 
 	defer dbInstance.Close()
 
-	router := gin.Default()
+	gin.SetMode(gin.ReleaseMode)
+
+	router := gin.New()
 
 	router.POST("/clientes/:id/transacoes", controllers.NewTransaction)
 	router.GET("/clientes/:id/extrato", controllers.Extrato)
+
 	router.Run(":8080")
 }
 

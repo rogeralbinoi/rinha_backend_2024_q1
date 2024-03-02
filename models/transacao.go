@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type TipoTransacao string
 
@@ -12,9 +14,9 @@ const (
 type Transacao struct {
 	ID          int           `json:"id"`
 	ClienteID   int           `json:"cliente_id"`
-	Tipo        TipoTransacao `json:"tipo"`
-	Valor       int           `json:"valor"`
-	Descricao   string        `json:"descricao"`
+	Tipo        TipoTransacao `json:"tipo" binding:"required,oneof=c d"`
+	Valor       int           `json:"valor" binding:"required,min=1"`
+	Descricao   string        `json:"descricao" binding:"required,max=10"`
 	RealizadaEm time.Time     `json:"realizada_em"`
 }
 
@@ -25,9 +27,13 @@ type TransacaoExtrato struct {
 	RealizadaEm time.Time     `json:"realizada_em"`
 }
 
+type Saldo struct {
+	Total       int       `json:"total"`
+	DataExtrato time.Time `json:"data_extrato"`
+	Limite      int       `json:"limite"`
+}
+
 type Extrato struct {
-	Total             int                `json:"total"`
-	DataExtrato       time.Time          `json:"data_extrato"`
-	Limite            int                `json:"limite"`
+	Saldo             Saldo              `json:"saldo"`
 	UltimasTransacoes []TransacaoExtrato `json:"ultimas_transacoes"`
 }
